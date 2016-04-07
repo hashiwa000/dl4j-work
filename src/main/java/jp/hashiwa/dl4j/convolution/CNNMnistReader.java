@@ -20,8 +20,8 @@ import java.io.FileInputStream;
  */
 public class CNNMnistReader {
   public static void main(String[] args) throws Exception {
-    String confFile = "convolution.json";
-    String binFile = "convolution.bin";
+    String confFile = "logs/convolution.json";
+    String binFile = "logs/convolution.bin";
     int outputNum = 10;
 
     Logger log = LoggerFactory.getLogger(CNNMnistReader.class);

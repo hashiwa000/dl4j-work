@@ -1,0 +1,94 @@
+E:\jdk\jdk1.8.0_74\bin\java -server -showversion -Didea.launcher.port=7534 "-Didea.launcher.bin.path=C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2016.1.1\bin" -classpath C:\Users\Masatoshi\AppData\Local\Temp\classpath2.jar -Dfile.encoding=UTF-8 com.intellij.rt.execution.application.AppMain jp.hashiwa.dl4j.convolution.CNNMnistCreator
+java version "1.8.0_74"
+Java(TM) SE Runtime Environment (build 1.8.0_74-b02)
+Java HotSpot(TM) Server VM (build 25.74-b02, mixed mode)
+
+22:18:40.158 [main] INFO  j.h.dl4j.convolution.CNNMnistCreator - Load data....
+
+22:18:42.534 [main] INFO  j.h.dl4j.convolution.CNNMnistCreator - Build model....
+4 07, 2016 10:18:43 åﬂå„ com.github.fommil.netlib.BLAS <clinit>
+åxçê: Failed to load implementation from: com.github.fommil.netlib.NativeSystemBLAS
+4 07, 2016 10:18:44 åﬂå„ com.github.fommil.jni.JniLoader liberalLoad
+èÓïÒ: successfully loaded C:\Users\MASATO~1\AppData\Local\Temp\jniloader3557537580547890420netlib-native_ref-win-i686.dll
+****************************************************************
+WARNING: COULD NOT LOAD NATIVE SYSTEM BLAS
+ND4J performance WILL be reduced
+Please install native BLAS library such as OpenBLAS or IntelMKL
+See http://nd4j.org/getstarted.html#open for further details
+****************************************************************
+22:18:44.458 [main] DEBUG org.reflections.Reflections - going to scan these urls:
+jar:file:/C:/Users/Masatoshi/.gradle/caches/modules-2/files-2.1/org.nd4j/nd4j-api/0.4-rc3.8/8247bd513d454843df4daef4b730b901e5d0e7df/nd4j-api-0.4-rc3.8.jar!/
+jar:file:/C:/Users/Masatoshi/.gradle/caches/modules-2/files-2.1/org.nd4j/nd4j-jackson/0.4-rc3.8/620862141252f9f1f9e66873a583e005cf70f19f/nd4j-jackson-0.4-rc3.8.jar!/
+jar:file:/C:/Users/Masatoshi/.gradle/caches/modules-2/files-2.1/org.nd4j/nd4j-common/0.4-rc3.8/5b7fbd7ef0d20816706cadbdf88d8ed8dd609de3/nd4j-common-0.4-rc3.8.jar!/
+jar:file:/C:/Users/Masatoshi/.gradle/caches/modules-2/files-2.1/org.nd4j/nd4j-x86/0.4-rc3.8/ac82fac335e49d29588ce7b0bb241a3e8eb9ab85/nd4j-x86-0.4-rc3.8.jar!/
+22:18:45.156 [main] DEBUG org.reflections.Reflections - could not scan file org/nd4j/linalg/cpu/javacpp/linux-x86_64/libjniLoop.so in url jar:file:/C:/Users/Masatoshi/.gradle/caches/modules-2/files-2.1/org.nd4j/nd4j-x86/0.4-rc3.8/ac82fac335e49d29588ce7b0bb241a3e8eb9ab85/nd4j-x86-0.4-rc3.8.jar!/ with scanner TypeAnnotationsScanner
+22:18:45.161 [main] DEBUG org.reflections.Reflections - could not scan file org/nd4j/linalg/cpu/javacpp/linux-x86_64/libjniLoop.so in url jar:file:/C:/Users/Masatoshi/.gradle/caches/modules-2/files-2.1/org.nd4j/nd4j-x86/0.4-rc3.8/ac82fac335e49d29588ce7b0bb241a3e8eb9ab85/nd4j-x86-0.4-rc3.8.jar!/ with scanner SubTypesScanner
+22:18:45.164 [main] INFO  org.reflections.Reflections - Reflections took 704 ms to scan 4 urls, producing 116 keys and 359 values 
+22:18:46.343 [main] INFO  j.h.dl4j.convolution.CNNMnistCreator - Train model....
+22:18:46.705 [main] WARN  o.d.optimize.solvers.BaseOptimizer - Objective function automatically set to minimize. Set stepFunction in neural net configuration to change default settings.
+22:19:41.119 [main] INFO  o.d.o.l.ScoreIterationListener - Score at iteration 0 is 2.6776825639390944
+22:21:23.894 [main] INFO  o.d.o.l.ScoreIterationListener - Score at iteration 2 is 2.1931480313950775
+22:23:03.985 [main] INFO  o.d.o.l.ScoreIterationListener - Score at iteration 4 is 1.6746972585356235
+22:24:44.052 [main] INFO  o.d.o.l.ScoreIterationListener - Score at iteration 6 is 1.3039268579930066
+22:26:23.738 [main] INFO  o.d.o.l.ScoreIterationListener - Score at iteration 8 is 0.9798040338397026
+22:28:03.784 [main] INFO  o.d.o.l.ScoreIterationListener - Score at iteration 0 is 1.0415607730567455
+22:29:42.887 [main] INFO  o.d.o.l.ScoreIterationListener - Score at iteration 2 is 0.8497928621399403
+22:31:22.212 [main] INFO  o.d.o.l.ScoreIterationListener - Score at iteration 4 is 0.7183761588913202
+22:33:01.598 [main] INFO  o.d.o.l.ScoreIterationListener - Score at iteration 6 is 0.7029527971714735
+22:34:41.107 [main] INFO  o.d.o.l.ScoreIterationListener - Score at iteration 8 is 0.5542249555617571
+22:36:20.676 [main] INFO  o.d.o.l.ScoreIterationListener - Score at iteration 0 is 0.7950156704777478
+22:38:00.698 [main] INFO  o.d.o.l.ScoreIterationListener - Score at iteration 2 is 0.6353060844421387
+22:39:39.818 [main] INFO  o.d.o.l.ScoreIterationListener - Score at iteration 4 is 0.6403429657995702
+22:41:18.874 [main] INFO  o.d.o.l.ScoreIterationListener - Score at iteration 6 is 0.5368056929969788
+22:42:57.928 [main] INFO  o.d.o.l.ScoreIterationListener - Score at iteration 8 is 0.4195577607798576
+22:44:38.578 [main] INFO  o.d.o.l.ScoreIterationListener - Score at iteration 0 is 0.3681572108781338
+22:46:17.473 [main] INFO  o.d.o.l.ScoreIterationListener - Score at iteration 2 is 0.32245658259510995
+22:47:56.599 [main] INFO  o.d.o.l.ScoreIterationListener - Score at iteration 4 is 0.2891946652776003
+22:49:35.862 [main] INFO  o.d.o.l.ScoreIterationListener - Score at iteration 6 is 0.252537038629055
+22:51:14.742 [main] INFO  o.d.o.l.ScoreIterationListener - Score at iteration 8 is 0.21910545122802258
+22:52:04.480 [main] INFO  j.h.dl4j.convolution.CNNMnistCreator - Evaluate weights....
+22:52:04.480 [main] INFO  j.h.dl4j.convolution.CNNMnistCreator - Evaluate model....
+22:52:18.461 [main] INFO  j.h.dl4j.convolution.CNNMnistCreator - 
+Examples labeled as 0 classified by model as 0: 37 times
+Examples labeled as 0 classified by model as 7: 2 times
+Examples labeled as 0 classified by model as 8: 1 times
+Examples labeled as 1 classified by model as 1: 42 times
+Examples labeled as 1 classified by model as 6: 1 times
+Examples labeled as 2 classified by model as 2: 31 times
+Examples labeled as 2 classified by model as 6: 1 times
+Examples labeled as 2 classified by model as 8: 1 times
+Examples labeled as 3 classified by model as 3: 35 times
+Examples labeled as 3 classified by model as 6: 2 times
+Examples labeled as 4 classified by model as 4: 38 times
+Examples labeled as 4 classified by model as 6: 1 times
+Examples labeled as 4 classified by model as 9: 1 times
+Examples labeled as 5 classified by model as 4: 3 times
+Examples labeled as 5 classified by model as 5: 40 times
+Examples labeled as 5 classified by model as 6: 1 times
+Examples labeled as 6 classified by model as 0: 1 times
+Examples labeled as 6 classified by model as 6: 40 times
+Examples labeled as 6 classified by model as 8: 1 times
+Examples labeled as 7 classified by model as 2: 2 times
+Examples labeled as 7 classified by model as 7: 44 times
+Examples labeled as 7 classified by model as 9: 2 times
+Examples labeled as 8 classified by model as 3: 1 times
+Examples labeled as 8 classified by model as 4: 1 times
+Examples labeled as 8 classified by model as 6: 1 times
+Examples labeled as 8 classified by model as 8: 28 times
+Examples labeled as 8 classified by model as 9: 1 times
+Examples labeled as 9 classified by model as 0: 1 times
+Examples labeled as 9 classified by model as 4: 1 times
+Examples labeled as 9 classified by model as 7: 2 times
+Examples labeled as 9 classified by model as 9: 37 times
+
+
+==========================Scores========================================
+ Accuracy:  0.93
+ Precision: 0.9317
+ Recall:    0.9293
+ F1 Score:  0.9305
+========================================================================
+22:52:18.461 [main] INFO  j.h.dl4j.convolution.CNNMnistCreator - Save model....
+22:52:35.662 [main] INFO  j.h.dl4j.convolution.CNNMnistCreator - ****************Example finished********************
+
+Process finished with exit code 0

@@ -33,7 +33,13 @@ import java.io.OutputStream;
 import java.util.*;
 
 /**
- * Created by willow on 5/11/15.
+ * Reference:
+ * Deeplearning4j sample:
+ * https://github.com/deeplearning4j/dl4j-0.4-examples/blob/master/src/main/java/org/deeplearning4j/examples/convolution/LenetMnistExample.java
+ *
+ * Caffe LeNet sample:
+ * http://caffe.berkeleyvision.org/tutorial/layers.html
+ * https://github.com/BVLC/caffe/blob/master/examples/mnist/lenet.prototxt
  */
 public class CNNMnistCreator {
 
@@ -55,64 +61,13 @@ public class CNNMnistCreator {
     DataSet trainInput;
     List<INDArray> testInput = new ArrayList<>();
     List<INDArray> testLabels = new ArrayList<>();
-    String binFile = "convolution.bin";
-    String confFile = "convolution.json";
+    String binFile = "logs/convolution.bin";
+    String confFile = "logs/convolution.json";
 
     log.info("Load data....");
     DataSetIterator mnistIter = new MnistDataSetIterator(batchSize,numSamples, true);
 
     log.info("Build model....");
-//    MultiLayerConfiguration.Builder builder = new NeuralNetConfiguration.Builder()
-//            .seed(seed)
-//            .iterations(iterations)
-//            .gradientNormalization(GradientNormalization.RenormalizeL2PerLayer)
-//            .optimizationAlgo(OptimizationAlgorithm.STOCHASTIC_GRADIENT_DESCENT)
-//            .list(3)
-//            .layer(0, new ConvolutionLayer.Builder(10, 10)
-//                    .stride(2,2)
-//                    .nIn(nChannels)
-//                    .nOut(6)
-//                    .weightInit(WeightInit.XAVIER)
-//                    .activation("relu")
-//                    .build())
-//            .layer(1, new SubsamplingLayer.Builder(SubsamplingLayer.PoolingType.MAX, new int[] {2,2})
-//                    .build())
-//            .layer(2, new OutputLayer.Builder(LossFunctions.LossFunction.NEGATIVELOGLIKELIHOOD)
-//                    .nOut(outputNum)
-//                    .weightInit(WeightInit.XAVIER)
-//                    .activation("softmax")
-//                    .build())
-//            .backprop(true).pretrain(false);
-//    new ConvolutionLayerSetup(builder,numRows,numColumns,nChannels);
-
-    // https://github.com/deeplearning4j/dl4j-0.4-examples/blob/master/src/main/java/org/deeplearning4j/examples/convolution/LenetMnistExample.java
-//    MultiLayerConfiguration.Builder builder = new NeuralNetConfiguration.Builder()
-//            .seed(seed)
-//            .iterations(iterations)
-//            .regularization(true).l2(0.0005)
-//            .learningRate(0.01)
-//            .weightInit(WeightInit.XAVIER)
-//            .optimizationAlgo(OptimizationAlgorithm.STOCHASTIC_GRADIENT_DESCENT)
-//            .updater(Updater.NESTEROVS).momentum(0.9)
-//            .list(4)
-//            .layer(0, new ConvolutionLayer.Builder(5, 5)
-//                    .nIn(nChannels)
-//                    .stride(1, 1)
-//                    .nOut(20).dropOut(0.5)
-//                    .activation("relu")
-//                    .build())
-//            .layer(1, new SubsamplingLayer.Builder(SubsamplingLayer.PoolingType.MAX)
-//                    .kernelSize(2,2)
-//                    .stride(2,2)
-//                    .build())
-//            .layer(2, new DenseLayer.Builder().activation("relu")
-//                    .nOut(500).build())
-//            .layer(3, new OutputLayer.Builder(LossFunctions.LossFunction.NEGATIVELOGLIKELIHOOD)
-//                    .nOut(outputNum)
-//                    .activation("softmax")
-//                    .build())
-//            .backprop(true).pretrain(false);
-//    new ConvolutionLayerSetup(builder, numRows, numColumns, nChannels);
 
     MultiLayerConfiguration.Builder builder = new NeuralNetConfiguration.Builder()
             .seed(seed)
@@ -129,7 +84,6 @@ public class CNNMnistCreator {
                     .nOut(20)
 //                    .dropOut(0.5)
                     .activation("relu")
-                    .weightInit(WeightInit.XAVIER)
                     .build())
             .layer(1, new SubsamplingLayer.Builder(SubsamplingLayer.PoolingType.MAX)
                     .kernelSize(2,2)
@@ -141,7 +95,6 @@ public class CNNMnistCreator {
                     .nOut(50)
 //                    .dropOut(0.5)
                     .activation("relu")
-                    .weightInit(WeightInit.XAVIER)
                     .build())
             .layer(3, new SubsamplingLayer.Builder(SubsamplingLayer.PoolingType.MAX)
                     .kernelSize(2,2)
@@ -149,7 +102,6 @@ public class CNNMnistCreator {
                     .build())
             .layer(4, new DenseLayer.Builder().activation("relu")
                     .nOut(500)
-                    .weightInit(WeightInit.XAVIER)
                     .build())
             .layer(5, new OutputLayer.Builder(LossFunctions.LossFunction.NEGATIVELOGLIKELIHOOD)
                     .nOut(outputNum)
@@ -182,8 +134,6 @@ public class CNNMnistCreator {
       INDArray output = model.output(testInput.get(i));
       eval.eval(testLabels.get(i), output);
     }
-//    INDArray output = model.output(testInput.get(0));
-//    eval.eval(testLabels.get(0), output);
     log.info(eval.stats());
 
     log.info("Save model....");
