@@ -28,7 +28,8 @@ public class MnistViewer {
             MNIST_IMAGE_HEIGHT,
             BufferedImage.TYPE_BYTE_GRAY);
 
-    for (int i = 0; i < MNIST_IMAGE_WIDTH * MNIST_IMAGE_HEIGHT; i++) {
+//    for (int i = 0; i < MNIST_IMAGE_WIDTH * MNIST_IMAGE_HEIGHT; i++) {
+    for (int i = 0; i < arr.length(); i++) {
       bi.getRaster().setSample(
               i % MNIST_IMAGE_WIDTH,        // x
               i / MNIST_IMAGE_HEIGHT,       // y
@@ -49,7 +50,7 @@ public class MnistViewer {
     frame.setTitle(title);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-    JPanel panel = new JPanel();;
+    JPanel panel = new JPanel();
     panel.setLayout(new GridLayout(0, 10));
 
     List<JLabel> labels = getComponents(digits, imageScale);
