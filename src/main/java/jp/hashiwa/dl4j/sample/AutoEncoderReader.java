@@ -6,6 +6,7 @@ import org.deeplearning4j.nn.api.Layer;
 import org.deeplearning4j.nn.conf.MultiLayerConfiguration;
 import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
 import org.nd4j.linalg.api.ndarray.INDArray;
+import org.nd4j.linalg.cpu.NDArray;
 import org.nd4j.linalg.dataset.DataSet;
 import org.nd4j.linalg.factory.Nd4j;
 import org.slf4j.Logger;
@@ -23,8 +24,8 @@ import java.util.stream.Collectors;
  */
 public class AutoEncoderReader {
   public static void main(String[] args) throws Exception {
-    String confFile = "autoencoder.json";
-    String binFile = "autoencoder.bin";
+    String confFile = "logs/autoencoder.json";
+    String binFile = "logs/autoencoder.bin";
 
     Logger log = LoggerFactory.getLogger(AutoEncoderReader.class);
 
@@ -57,18 +58,26 @@ public class AutoEncoderReader {
     MnistViewer.visualize("Original", originalArrays, 2.0);
     MnistViewer.visualize("Decoded", decodedArrays, 2.0);
 
-    for (Layer layer: model.getLayers()) {
-      INDArray paramW = layer.getParam("W"); // rows=784, columns=1000
+    try {
+      INDArray paramW1 = model.getLayer(0).getParam("W"); // rows=784, columns=1000
       List<INDArray> params = new ArrayList<>();
-      for (int columnIndex=0 ; columnIndex<paramW.columns() ; columnIndex++) {
-        params.add(paramW.getColumn(columnIndex));
+      for (int columnIndex=0 ; columnIndex<paramW1.columns() ; columnIndex++) {
+        params.add(paramW1.getColumn(columnIndex));
       }
+      MnistViewer.visualize("Params of layer 0" , normalizedParamW(params), 2.0);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
 
-      try {
-        MnistViewer.visualize("Params " + layer, normalizedParamW(params), 2.0);
-      } catch (Exception e) {
-        e.printStackTrace();
+    try {
+      INDArray paramW2 = model.getLayer(1).getParam("W").transposei(); // rows=784, columns=1000
+      List<INDArray> params = new ArrayList<>();
+      for (int columnIndex=0 ; columnIndex<paramW2.columns() ; columnIndex++) {
+        params.add(paramW2.getColumn(columnIndex));
       }
+      MnistViewer.visualize("Params of layer 1" , normalizedParamW(params), 2.0);
+    } catch (Exception e) {
+      e.printStackTrace();
     }
   }
 
