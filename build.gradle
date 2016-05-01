@@ -51,6 +51,9 @@ if (isWin) {
 }
 
 run {
+    jvmArgs '-server'
+    jvmArgs '-showversion'
+    
     if (project.hasProperty('main')) {
         main(project.main)
     }
