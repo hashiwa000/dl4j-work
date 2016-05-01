@@ -5,6 +5,8 @@ apply plugin: 'application'
 
 sourceCompatibility = 1.8
 
+def isWin = 0 <= System.getProperty('os.name').indexOf('Windows')
+
 repositories {
     mavenCentral()
 }
@@ -27,23 +29,25 @@ task wrapper(type: Wrapper) {
     gradleVersion = '2.13'
 }
 
-task pathingJar(type: Jar) {
-    dependsOn configurations.runtime
-    appendix = 'pathing'
+if (isWin) {
+    task pathingJar(type: Jar) {
+        dependsOn configurations.runtime
+        appendix = 'pathing'
 
-    doFirst {
-        manifest {
-            // Build the Class-Path for absolute paths based on runtime dependencies.
-            attributes "Class-Path": configurations.runtime.files.collect {
-                it.toURL().toString().replaceFirst(/file:\/+/, '/')
-            }.join(' ')
+        doFirst {
+            manifest {
+                // Build the Class-Path for absolute paths based on runtime dependencies.
+                attributes "Class-Path": configurations.runtime.files.collect {
+                    it.toURL().toString().replaceFirst(/file:\/+/, '/')
+                }.join(' ')
+            }
         }
-    }
 
-    // assetCompile will be execute for all Jar-type tasks
-    // (see https://github.com/bertramdev/asset-pipeline/blob/master/asset-pipeline-gradle/src/main/groovy/asset/pipeline/gradle/AssetPipelinePlugin.groovy#L85)
-    // at least exclude the assets from pathing jar
-    exclude { it.file.absolutePath.contains('assetCompile') }
+        // assetCompile will be execute for all Jar-type tasks
+        // (see https://github.com/bertramdev/asset-pipeline/blob/master/asset-pipeline-gradle/src/main/groovy/asset/pipeline/gradle/AssetPipelinePlugin.groovy#L85)
+        // at least exclude the assets from pathing jar
+        exclude { it.file.absolutePath.contains('assetCompile') }
+    }
 }
 
 run {
@@ -51,8 +55,10 @@ run {
         main(project.main)
     }
 
-    dependsOn pathingJar
-    doFirst {
-        classpath = files("$buildDir/classes/main", "$buildDir/resources/main", "$projectDir/gsp-classes", pathingJar.archivePath)
+    if (isWin) {
+        dependsOn pathingJar
+        doFirst {
+            classpath = files("$buildDir/classes/main", "$buildDir/resources/main", "$projectDir/gsp-classes", pathingJar.archivePath)
+        }
     }
 }
