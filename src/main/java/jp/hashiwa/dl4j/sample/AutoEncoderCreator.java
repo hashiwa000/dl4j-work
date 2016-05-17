@@ -5,10 +5,10 @@ import org.deeplearning4j.datasets.iterator.DataSetIterator;
 import org.deeplearning4j.datasets.iterator.impl.MnistDataSetIterator;
 import org.deeplearning4j.nn.conf.MultiLayerConfiguration;
 import org.deeplearning4j.nn.conf.NeuralNetConfiguration;
+import org.deeplearning4j.nn.conf.layers.DenseLayer;
 import org.deeplearning4j.nn.conf.layers.OutputLayer;
 import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
 import org.deeplearning4j.optimize.listeners.ScoreIterationListener;
-import org.deeplearning4j.ui.weights.HistogramIterationListener;
 import org.nd4j.linalg.dataset.DataSet;
 import org.nd4j.linalg.factory.Nd4j;
 import org.nd4j.linalg.lossfunctions.LossFunctions;
@@ -32,9 +32,10 @@ public class AutoEncoderCreator {
 
     final int numRows = 28;
     final int numColumns = 28;
+    final int hiddenNodesNum = 400;
     int numSamples = 200; //60000;
-    int batchSize = 50; //100;
-    int iterations = 50;
+    int batchSize = 50;
+    int iterations = 100;
     int seed = 123;
     int listenerFreq = batchSize / 10;
 
@@ -49,30 +50,32 @@ public class AutoEncoderCreator {
             .iterations(iterations)
             .list(2)
 
-            // encoding
-            .layer(0, new OutputLayer.Builder()
+//            // encoding
+            .layer(0, new DenseLayer.Builder()
                     .nIn(numRows * numColumns)
-                    .nOut(400)
+                    .nOut(hiddenNodesNum)
                     .activation("relu")
                     .dropOut(0.3)
-                    .lossFunction(LossFunctions.LossFunction.MSE)
                     .build())
 
             // decoding
             .layer(1, new OutputLayer.Builder()
-                    .nIn(400)
+                    .nIn(hiddenNodesNum)
                     .nOut(numRows * numColumns)
                     .activation("relu")
                     .dropOut(0.3)
                     .lossFunction(LossFunctions.LossFunction.MSE)
                     .build())
+
+            .pretrain(true)
+            .backprop(true)
             .build();
 
     MultiLayerNetwork model = new MultiLayerNetwork(conf);
     model.init();
 
-//    model.setListeners(new ScoreIterationListener(listenerFreq));
-    model.setListeners(new HistogramIterationListener(listenerFreq));
+    model.setListeners(new ScoreIterationListener(listenerFreq));
+//    model.setListeners(new HistogramIterationListener(listenerFreq));
 
     log.info("Train model....");
     while (iter.hasNext()) {
@@ -88,5 +91,7 @@ public class AutoEncoderCreator {
     FileUtils.writeStringToFile(new File(confFile), model.getLayerWiseConfigurations().toJson());
 
     log.info("Finish!");
+
+//    AutoEncoderReader.main(new String[0]);
   }
 }

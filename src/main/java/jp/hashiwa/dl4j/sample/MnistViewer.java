@@ -28,7 +28,6 @@ public class MnistViewer {
             MNIST_IMAGE_HEIGHT,
             BufferedImage.TYPE_BYTE_GRAY);
 
-//    for (int i = 0; i < MNIST_IMAGE_WIDTH * MNIST_IMAGE_HEIGHT; i++) {
     for (int i = 0; i < arr.length(); i++) {
       bi.getRaster().setSample(
               i % MNIST_IMAGE_WIDTH,        // x

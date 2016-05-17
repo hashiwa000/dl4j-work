@@ -56,7 +56,9 @@ public class AutoEncoderReader {
 
     log.info("Visualize ...");
     MnistViewer.visualize("Original", originalArrays, 2.0);
+    MnistImgWriter.write("logs/original.png", originalArrays, 2.0);
     MnistViewer.visualize("Decoded", decodedArrays, 2.0);
+    MnistImgWriter.write("logs/decoded.png", decodedArrays, 2.0);
 
     try {
       INDArray paramW1 = model.getLayer(0).getParam("W"); // rows=784, columns=1000
@@ -64,7 +66,9 @@ public class AutoEncoderReader {
       for (int columnIndex=0 ; columnIndex<paramW1.columns() ; columnIndex++) {
         params.add(paramW1.getColumn(columnIndex));
       }
-      MnistViewer.visualize("Params of layer 0" , normalizedParamW(params), 2.0);
+      List<INDArray> normalized = normalizedParamW(params);
+      MnistViewer.visualize("Params of layer 0" , normalized, 2.0);
+      MnistImgWriter.write("logs/param0.png", normalized, 2.0);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -75,7 +79,9 @@ public class AutoEncoderReader {
       for (int columnIndex=0 ; columnIndex<paramW2.columns() ; columnIndex++) {
         params.add(paramW2.getColumn(columnIndex));
       }
-      MnistViewer.visualize("Params of layer 1" , normalizedParamW(params), 2.0);
+      List<INDArray> normalized = normalizedParamW(params);
+      MnistViewer.visualize("Params of layer 1" , normalized, 2.0);
+      MnistImgWriter.write("logs/param1.png", normalized, 2.0);
     } catch (Exception e) {
       e.printStackTrace();
     }
